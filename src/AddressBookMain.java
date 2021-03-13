@@ -64,9 +64,23 @@ public class AddressBookMain {
         }
     }
 
+    public void deleteContact() {
+        System.out.print("Please enter the First Name of the person you want to edit the contact of: ");
+        String name = scan.next();
+        for(int i = 0; i < contact.size(); i++) {
+            //Check if contact exists or not
+            if(contact.get(i).contains(name)) {
+                contact.remove(i);
+                System.out.println("Contact Deleted Successfully");
+                System.out.println("Current Records in Address Book are " + contact.size());
+                break;
+            }
+        }
+    }
+
     public void choiceSelect() {
         System.out.println("Current Records present in the Address Book are " + contact.size());
-        System.out.println("Please select you choice, do you want to\n 1) Add New Contact\n 2) Edit Existing Contact\n 0) Exit the Program");
+        System.out.println("Please select you choice, do you want to\n 0) Exit the Program\n 1) Add New Contact\n 2) Edit Existing Contact\n 3) Delete a Contact\n");
         int choice = scan.nextInt();
         switch (choice) {
             case 0:
@@ -77,12 +91,15 @@ public class AddressBookMain {
             case 2:
                 editContact();
                 break;
+            case 3:
+                deleteContact();
+                break;
             default:
                 System.out.println("Please enter the Number associated with the choice");
                 choiceSelect();
+                break;
         }
     }
-
 
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
