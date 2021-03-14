@@ -28,20 +28,24 @@ public class AddressBookMain {
         contact.add(addNew);
 
         System.out.println("The contact has been added to the Address Book");
-        for(int i = 0; i < contact.size(); i++) {
-            for (int j = 0; j < contact.get(i).size(); j++) {
-                System.out.print(contact.get(i).get(j) + " ");
-            }
-            System.out.println();
-        }
 
+        //UC-5 Add another person
         System.out.println("Do you want to add another contact to the Address Book? (Y/N)");
         String choice = scan.next();
         if(choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes"))
             addContact();
         else
             choiceSelect();
+    }
+
+    public void displayContact() {
+        for(int i = 0; i < contact.size(); i++) {
+            for (int j = 0; j < contact.get(i).size(); j++) {
+                System.out.print(contact.get(i).get(j) + " ");
+            }
+            System.out.println();
         }
+    }
 
     public void editContact() {
         System.out.print("Please enter the First Name of the person you want to edit the contact of: ");
@@ -80,7 +84,7 @@ public class AddressBookMain {
 
     public void choiceSelect() {
         System.out.println("Current Records present in the Address Book are " + contact.size());
-        System.out.println("Please select you choice, do you want to\n 0) Exit the Program\n 1) Add New Contact\n 2) Edit Existing Contact\n 3) Delete a Contact\n");
+        System.out.println("Please select you choice, do you want to\n 0) Exit the Program\n1) Add New Contact\n2) Edit Existing Contact\n3) Delete a Contact\n4) Display All Contacts");
         int choice = scan.nextInt();
         switch (choice) {
             case 0:
@@ -93,6 +97,9 @@ public class AddressBookMain {
                 break;
             case 3:
                 deleteContact();
+                break;
+            case 4:
+                displayContact();
                 break;
             default:
                 System.out.println("Please enter the Number associated with the choice");
