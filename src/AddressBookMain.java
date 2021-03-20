@@ -1,11 +1,10 @@
 import java.util.*;
 public class AddressBookMain {
 
-    ArrayList<ArrayList<String>> contact = new ArrayList<ArrayList<String>>();
-
+    static HashMap<String, ArrayList> books = new HashMap<>();
     Scanner scan = new Scanner(System.in);
 
-    public void addContact() {
+    public void addContact(ArrayList<ArrayList<String>> contact) {
         ArrayList<String> addNew = new ArrayList<String>();
         System.out.print("Please enter the First Name: ");
         addNew.add(scan.next());
@@ -33,12 +32,12 @@ public class AddressBookMain {
         System.out.println("Do you want to add another contact to the Address Book? (Y/N)");
         String choice = scan.next();
         if(choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes"))
-            addContact();
+            addContact(contact);
         else
             choiceSelect();
     }
 
-    public void displayContact() {
+    public void displayContact(ArrayList<ArrayList<String>> contact) {
         for(int i = 0; i < contact.size(); i++) {
             for (int j = 0; j < contact.get(i).size(); j++) {
                 System.out.print(contact.get(i).get(j) + " ");
@@ -47,7 +46,7 @@ public class AddressBookMain {
         }
     }
 
-    public void editContact() {
+    public void editContact(ArrayList<ArrayList<String>> contact) {
         System.out.print("Please enter the First Name of the person you want to edit the contact of: ");
         String name = scan.next();
         for(int i = 0; i < contact.size(); i++){
@@ -68,7 +67,7 @@ public class AddressBookMain {
         }
     }
 
-    public void deleteContact() {
+    public void deleteContact(ArrayList<ArrayList<String>> contact) {
         System.out.print("Please enter the First Name of the person you want to edit the contact of: ");
         String name = scan.next();
         for(int i = 0; i < contact.size(); i++) {
@@ -82,35 +81,57 @@ public class AddressBookMain {
         }
     }
 
-    public void choiceSelect() {
+    public ArrayList<ArrayList<String>> choiceSelect() {
+        ArrayList<ArrayList<String>> contact = new ArrayList<ArrayList<String>>();
         System.out.println("Current Records present in the Address Book are " + contact.size());
-        System.out.println("Please select you choice, do you want to\n 0) Exit the Program\n1) Add New Contact\n2) Edit Existing Contact\n3) Delete a Contact\n4) Display All Contacts");
+        System.out.println("Please select your choice, do you want to\n " +
+                            "0) Exit the Program\n" +
+                            "1) Add New Contact\n" +
+                            "2) Edit Existing Contact\n" +
+                            "3) Delete a Contact\n" +
+                            "4) Display All Contacts\n" +
+                            "5) Add New Address Book");
         int choice = scan.nextInt();
         switch (choice) {
             case 0:
-                System.exit(0);
+                return contact;
             case 1:
-                addContact();
-                break;
+                addContact(contact);
+                return contact;
+
             case 2:
-                editContact();
-                break;
+                editContact(contact);
+                return contact;
+
             case 3:
-                deleteContact();
-                break;
+                deleteContact(contact);
+                return contact;
+
             case 4:
-                displayContact();
-                break;
+                displayContact(contact);
+                return contact;
+
+            case 5:
+                addBooks();
+                return contact;
+
             default:
                 System.out.println("Please enter the Number associated with the choice");
                 choiceSelect();
                 break;
         }
+        return contact;
+    }
+
+    public void addBooks() {
+        System.out.println("Current Number of Address Books in the Database are: " + books.size());
+        System.out.print("Enter the Address Books Name: ");
+        books.put(scan.next(), choiceSelect());
     }
 
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
         AddressBookMain obj = new AddressBookMain();
-        obj.choiceSelect();
+        obj.addBooks();
     }
 }
