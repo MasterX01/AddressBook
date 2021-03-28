@@ -1,7 +1,14 @@
 package com.bridgelabz;
 
 public class Person {
-    String firstName, lastName, address, city, state, zip, pNo, email;
+    String firstName;
+    String lastName;
+    String address;
+    String city;
+    String state;
+    String zip;
+    String pNo;
+    String email;
 
     public String getFirstName() {
         return firstName;

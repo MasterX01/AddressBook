@@ -2,7 +2,6 @@ package com.bridgelabz;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class AddressBook {
 
@@ -15,7 +14,7 @@ public class AddressBook {
         System.out.println("Please enter the First Name: ");
         String fName = scan.nextLine();
         String finalFName = fName;
-        while(personArrayList.stream().anyMatch(s -> s.firstName.equalsIgnoreCase(finalFName))){
+        while(personArrayList.stream().anyMatch(s -> s.getFirstName().equalsIgnoreCase(finalFName))){
             System.out.println("Name Already exists, Please enter a New Name");
             fName = scan.nextLine();
         }
@@ -38,7 +37,7 @@ public class AddressBook {
 
     public void viewPersons(){
         personArrayList.stream().forEach(s -> {
-            System.out.println("First Name : " + s.firstName);
+            System.out.println("First Name : " + s.getFirstName());
             System.out.println("Last Name : " + s.lastName);
             System.out.println("Address : " + s.address);
             System.out.println("City : " + s.city);
@@ -52,10 +51,10 @@ public class AddressBook {
     public void editPersonDetails() {
         System.out.println("Enter the First Name of the Person");
         String fName = scan.nextLine();
-        personArrayList.stream().filter(s -> s.firstName.equals(fName)).peek(s->{
+        personArrayList.stream().filter(s -> s.getFirstName().equals(fName)).peek(s->{
             Person person = s;
         });
-        System.out.println(person.firstName);
+        System.out.println(person.getFirstName());
         System.out.println("What do you want to edit?\n" +
                 "1) Last Name" +
                 "2) Address" +
@@ -96,7 +95,7 @@ public class AddressBook {
     public void deletePersonDetails() {
         System.out.println("Enter the First Name of the Person whose contact you want to delete.");
         String fName = scan.nextLine();
-        personArrayList.stream().filter(s -> s.firstName.equals(fName)).peek(s->{
+        personArrayList.stream().filter(s -> s.getFirstName().equals(fName)).peek(s->{
             Person person = s;
         });
         personArrayList.remove(person);
