@@ -48,13 +48,25 @@ public class AddressBookMain {
                 searchByState();
                 break;
             case 8:
-                System.exit(0);
+                viewByCityAndState();
                 break;
             case 9:
                 System.exit(0);
+                break;
         }
     }
 
+    public void viewByCityAndState() {
+        setOfBooks.values().forEach(s->{
+            s.personArrayList.forEach(sm->{
+                {
+                    cityToPerson.put(sm.firstName, sm.city);
+                    stateToPerson.put(sm.firstName, sm.state);
+                    System.out.println(sm.firstName + " : " + sm.city + " : " + sm.state);
+                }
+            });
+        });
+    }
 
     public void searchByState() {
         System.out.println("Please Enter the Name of the State you want to search by.");
