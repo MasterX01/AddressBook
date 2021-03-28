@@ -24,7 +24,10 @@ public class AddressBookMain {
                             "7) Search By State\n" +
                             "8) View Person By City and State\n" +
                             "9) Sort By Name\n" +
-                            "10) Exit\n");
+                            "10) Sort By City\n" +
+                            "11) Sort By State\n" +
+                            "12) Sort By Zip\n" +
+                            "13) Exit\n");
         int choice = scan.nextInt();
         switch (choice){
             case 1:
@@ -55,7 +58,62 @@ public class AddressBookMain {
                 sortByName();
                 break;
             case 10:
+                sortByCity();
+                break;
+            case 11:
+                sortByState();
+                break;
+            case 12:
+                sortByZip();
+                break;
+            case 13:
                 System.exit(0);
+        }
+    }
+
+    public void sortByZip() {
+        List<String> personList5 = setOfBooks.values().stream()
+                .flatMap(s -> s.personArrayList.stream()).map(st -> st.zip).sorted().distinct()
+                .collect(Collectors.toList());
+        for (String zip : personList5) {
+            setOfBooks.values().forEach(s -> {
+                s.personArrayList.forEach(sm -> {
+                    if (sm.zip == zip) {
+                        s.viewPersons(sm);
+                    }
+                });
+            });
+        }
+    }
+
+    public void sortByState() {
+        List<String> personList4 = setOfBooks.values().stream()
+                .flatMap(s -> s.personArrayList.stream()).map(st -> st.state).sorted().distinct()
+                .collect(Collectors.toList());
+        System.out.println(personList4);
+        for (String state : personList4) {
+            setOfBooks.values().forEach(s -> {
+                s.personArrayList.forEach(sm -> {
+                    if (sm.state.equals(state)) {
+                        s.viewPersons(sm);
+                    }
+                });
+            });
+        }
+    }
+
+    public void sortByCity() {
+        List<String> personList3 = setOfBooks.values().stream()
+                .flatMap(s -> s.personArrayList.stream()).map(st -> st.city).sorted().distinct()
+                .collect(Collectors.toList());
+        for (String city : personList3) {
+            setOfBooks.values().forEach(s -> {
+                s.personArrayList.forEach(sm -> {
+                    if (sm.city.equals(city)) {
+                        s.viewPersons(sm);
+                    }
+                });
+            });
         }
     }
 
@@ -73,6 +131,7 @@ public class AddressBookMain {
             });
         }
     }
+
     public void viewByCityAndState() {
         setOfBooks.values().forEach(s->{
             s.personArrayList.forEach(sm->{
@@ -116,19 +175,18 @@ public class AddressBookMain {
         List<Person> personList = setOfBooks.values().stream().flatMap(s->s.personArrayList.stream()).collect(Collectors.toList());
         long count = personList.stream().filter(s->s.city.equals(cityName)).count();
         System.out.println("Count in "+cityName+" is "+count);
-
     }
 
-        public void addNewAddressBook(){
-            System.out.println("Enter the New Address Book Name");
-            String nameOfBook = scan.nextLine();
-            while(setOfBooks.containsKey(nameOfBook)){
-                System.out.println("The Name already exists, Please try again");
-                nameOfBook = scan.nextLine();
-            }
-            currAddressBook = nameOfBook;
-            setOfBooks.put(nameOfBook, new AddressBook());
+    public void addNewAddressBook(){
+        System.out.println("Enter the New Address Book Name");
+        String nameOfBook = scan.nextLine();
+        while(setOfBooks.containsKey(nameOfBook)){
+            System.out.println("The Name already exists, Please try again");
+            nameOfBook = scan.nextLine();
         }
+        currAddressBook = nameOfBook;
+        setOfBooks.put(nameOfBook, new AddressBook());
+    }
 
     public static void main(String[] args) {
         AddressBookMain obj = new AddressBookMain();
