@@ -35,17 +35,15 @@ public class AddressBook {
         personArrayList.add(person);
     }
 
-    public void viewPersons(){
-        personArrayList.stream().forEach(s -> {
-            System.out.println("First Name : " + s.getFirstName());
-            System.out.println("Last Name : " + s.lastName);
-            System.out.println("Address : " + s.address);
-            System.out.println("City : " + s.city);
-            System.out.println("State : " + s.state);
-            System.out.println("Zip : " + s.zip);
-            System.out.println("Phone Number : " + s.pNo);
-            System.out.println("Email : " + s.email);
-        });
+    public void viewPersons(Person person){
+        System.out.println("First Name : " + person.getFirstName());
+        System.out.println("Last Name : " + person.lastName);
+        System.out.println("Address : " + person.address);
+        System.out.println("City : " + person.city);
+        System.out.println("State : " + person.state);
+        System.out.println("Zip : " + person.zip);
+        System.out.println("Phone Number : " + person.pNo);
+        System.out.println("Email : " + person.email);
     }
 
     public void editPersonDetails() {
