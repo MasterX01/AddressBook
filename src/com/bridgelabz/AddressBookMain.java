@@ -78,6 +78,11 @@ public class AddressBookMain {
                 }
             });
         });
+        //UC-10 count for state
+        List<Person> personList1 = setOfBooks.values().stream().flatMap(s->s.personArrayList.stream()).collect(Collectors.toList());
+        long count1 = personList1.stream().filter(s->s.state.equals(stateName)).count();
+        System.out.println("Count in "+stateName+" is "+count1);
+
     }
 
     public void searchByCity() {
@@ -90,6 +95,11 @@ public class AddressBookMain {
                 }
             });
         });
+        //UC-10 count for city
+        List<Person> personList = setOfBooks.values().stream().flatMap(s->s.personArrayList.stream()).collect(Collectors.toList());
+        long count = personList.stream().filter(s->s.city.equals(cityName)).count();
+        System.out.println("Count in "+cityName+" is "+count);
+
     }
 
     public void addNewAddressBook(){
