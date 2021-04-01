@@ -66,4 +66,17 @@ public class Person {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstname='" + firstName + '\'' +
+                ", lastname='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                ", phone=" + pNo +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

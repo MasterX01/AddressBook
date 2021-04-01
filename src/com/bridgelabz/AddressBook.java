@@ -12,11 +12,16 @@ public class AddressBook {
     public void addPersonDetails() {
 
         System.out.println("Please enter the First Name: ");
-        String fName = scan.nextLine();
-        String finalFName = fName;
-        while(personArrayList.stream().anyMatch(s -> s.getFirstName().equalsIgnoreCase(finalFName))){
-            System.out.println("Name Already exists, Please enter a New Name");
-            fName = scan.nextLine();
+        boolean flag = true;
+        while(flag) {
+            String fName = scan.nextLine();
+            String finalFName = fName;
+            if (personArrayList.stream().anyMatch(s -> s.getFirstName().equalsIgnoreCase(finalFName))) {
+                System.out.println("Name Already exists, Please enter a New Name");
+            }else {
+                person.setFirstName(fName);
+                flag = false;
+            }
         }
         System.out.println("Please enter the Last Name: ");
         person.setLastName(scan.nextLine());
@@ -54,12 +59,12 @@ public class AddressBook {
         });
         System.out.println(person.getFirstName());
         System.out.println("What do you want to edit?\n" +
-                "1) Last Name" +
-                "2) Address" +
-                "3) City" +
-                "4) State" +
-                "5) Zip" +
-                "6) Phone Number" +
+                "1) Last Name\n" +
+                "2) Address\n" +
+                "3) City\n" +
+                "4) State\n" +
+                "5) Zip\n" +
+                "6) Phone Number\n" +
                 "7) Email");
         int choice = scan.nextInt();
         switch (choice){

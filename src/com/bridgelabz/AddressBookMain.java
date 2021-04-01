@@ -1,5 +1,9 @@
 package com.bridgelabz;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,46 +31,67 @@ public class AddressBookMain {
                             "10) Sort By City\n" +
                             "11) Sort By State\n" +
                             "12) Sort By Zip\n" +
-                            "13) Exit\n");
+                            "13) Write Address Book Data to File\n" +
+                            "14) Read Address Book Data from File\n" +
+                            "15) Exit\n");
         int choice = scan.nextInt();
         switch (choice){
             case 1:
                 obj.addPersonDetails();
+                choiceSelect();
                 break;
             case 2:
                 obj.editPersonDetails();
+                choiceSelect();
                 break;
             case 3:
                 obj.deletePersonDetails();
+                choiceSelect();
                 break;
             case 4:
                 obj.addMultiplePerson();
+                choiceSelect();
                 break;
             case 5:
                 addNewAddressBook();
+                choiceSelect();
                 break;
             case 6:
                 searchByCity();
+                choiceSelect();
                 break;
             case 7:
                 searchByState();
+                choiceSelect();
                 break;
             case 8:
                 viewByCityAndState();
+                choiceSelect();
                 break;
             case 9:
                 sortByName();
+                choiceSelect();
                 break;
             case 10:
                 sortByCity();
+                choiceSelect();
                 break;
             case 11:
                 sortByState();
+                choiceSelect();
                 break;
             case 12:
                 sortByZip();
+                choiceSelect();
                 break;
             case 13:
+                writeData();
+                choiceSelect();
+                break;
+            case 14:
+                readData();
+                break;
+            case 15:
                 System.exit(0);
         }
     }
@@ -186,6 +211,30 @@ public class AddressBookMain {
         }
         currAddressBook = nameOfBook;
         setOfBooks.put(nameOfBook, new AddressBook());
+    }
+
+
+    public void writeData() {
+        StringBuffer empBuffer = new StringBuffer();
+        setOfBooks.entrySet().forEach(x->{
+            String nameString = x.getKey()+"\n";
+            empBuffer.append(nameString);
+            x.getValue().personArrayList.forEach(person->{
+                String employeeDataString = person.toString().concat("\n");
+                empBuffer.append(employeeDataString);
+            });
+        });
+
+        try {
+            Files.write(Paths.get("addressBook-file.txt"), empBuffer.toString().getBytes());
+
+        } catch (IOException e) {  }
+    }
+
+    public void readData() {
+        try {
+            Files.lines(new File("addressBook-file.txt").toPath()).map(line -> line.trim()).forEach(line -> System.out.println(line));
+        } catch (IOException e) { }
     }
 
     public static void main(String[] args) {
